@@ -14,7 +14,7 @@ function FolderList() {
   const notifyFolderNameEmpty = () => toast("Folder name cannot be empty");
   useEffect(() => {
     axios
-      .get("http://localhost:5000/folders")
+      .get("https://ng-task.onrender.com/folders")
       .then((response) => setFolders(response.data))
       .catch((error) => console.error(error));
   }, []);
@@ -40,7 +40,10 @@ function FolderList() {
     const formData = new FormData();
     formData.append("file", selectedFile);
     axios
-      .post(`http://localhost:5000/folders/${selectedFolderId}/files`, formData)
+      .post(
+        `https://ng-task.onrender.com/folders/${selectedFolderId}/files`,
+        formData
+      )
       .then((response) => {
         setFolders((prevFolders) =>
           prevFolders.map((folder) =>
@@ -60,7 +63,7 @@ function FolderList() {
       return;
     }
     axios
-      .post("http://localhost:5000/folders", { name: newFolderName })
+      .post("https://ng-task.onrender.com/folders", { name: newFolderName })
       .then((response) => {
         setFolders([...folders, response.data]);
         setNewFolderName("");
@@ -69,7 +72,7 @@ function FolderList() {
   };
   const handleDeleteFile = (fileId, folderId) => {
     axios
-      .delete(`http://localhost:5000/files/${fileId}`)
+      .delete(`https://ng-task.onrender.com/files/${fileId}`)
       .then(() => {
         setFolders((prevFolders) =>
           prevFolders.map((folder) =>
@@ -86,7 +89,7 @@ function FolderList() {
   };
   const handleDeleteFolder = (folderId) => {
     axios
-      .delete(`http://localhost:5000/folders/${folderId}`)
+      .delete(`https://ng-task.onrender.com/folders/${folderId}`)
       .then(() => {
         setFolders((prevFolders) =>
           prevFolders.filter((folder) => folder._id !== folderId)
@@ -96,7 +99,7 @@ function FolderList() {
   };
   const getAllFiles = (folderId) => {
     axios
-      .get(`http://localhost:5000/folders/${folderId}/files`)
+      .get(`https://ng-task.onrender.com/folders/${folderId}/files`)
       .then((response) => {
         setFolders((prevFolders) =>
           prevFolders.map((folder) =>
@@ -112,7 +115,9 @@ function FolderList() {
     const newName = prompt("Enter the new file name:");
     if (newName) {
       axios
-        .patch(`http://localhost:5000/files/${fileId}`, { name: newName })
+        .patch(`https://ng-task.onrender.com/files/${fileId}`, {
+          name: newName,
+        })
         .then(() => {
           setFolders((prevFolders) =>
             prevFolders.map((folder) => ({
@@ -130,7 +135,9 @@ function FolderList() {
     const newName = prompt("Enter the new folder name:");
     if (newName) {
       axios
-        .patch(`http://localhost:5000/folders/${folderId}`, { name: newName })
+        .patch(`https://ng-task.onrender.com/folders/${folderId}`, {
+          name: newName,
+        })
         .then(() => {
           setFolders((prevFolders) =>
             prevFolders.map((folder) =>
