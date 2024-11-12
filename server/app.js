@@ -187,6 +187,13 @@ app.post(
     }
   }
 );
+app.get("/", async (req, res) => {
+  try {
+    res.send("Hello World");
+  } catch (err) {
+    res.status(500).send({ message: "Error fetching file" });
+  }
+});
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
